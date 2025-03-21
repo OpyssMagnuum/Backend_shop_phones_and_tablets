@@ -22,9 +22,3 @@ def getCart(user_id, carts):
             pass
         elif cart.get('user', None) == int(user_id):
             return cart
-
-
-def addToOrderBD(result):
-    order = Order(user=result.get('user'), products=result.get('product'),
-                  total_price=result.get('total_price'), status=result.get('status'))
-    order.save()

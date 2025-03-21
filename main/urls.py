@@ -18,12 +18,16 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from shop.views import UserViewSet, OrderViewSet, MakingOrderViewSet, CartViewSet
+from shop.views import UserViewSet, OrderViewSet, MakingOrderViewSet, CartViewSet, ProductViewSet, TagViewSet, BrandViewSet, ReviewViewSet
 
 r = DefaultRouter()
-r.register('user', UserViewSet)
-r.register('cart', CartViewSet)
+r.register('users', UserViewSet)
+r.register('carts', CartViewSet)
 r.register('orders', OrderViewSet)
+r.register('products', ProductViewSet)
+r.register('tags', TagViewSet)
+r.register('brands', BrandViewSet)
+r.register('reviews', ReviewViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

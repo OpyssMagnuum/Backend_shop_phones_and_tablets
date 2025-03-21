@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
@@ -33,6 +34,17 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
+        def create(self, validated_data):
+            user_id = validated_data.pop('user_id')
+            product_ids = validated_data.pop('product_ids', [])
+            user = get_object_or_404(User, pk=user_id)
+            products = Product.objects.filter(pk__in=product_ids)
+
+            order = Order.objects.create(user=user, **validated_data)
+            order.product.set(products)
+
+            return order
 
 
 class ReviewSerializer(serializers.ModelSerializer):
