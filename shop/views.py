@@ -53,26 +53,26 @@ class MakingOrderViewSet(ListAPIView):
     queryset = Order.objects.all()
     serializer_class = CartSerializer
 
-    def post(self, request):  # По сути нажали на кнопку "Заказать". Удаляем из корзины и -1 каждого товара из корзины
-        user_id = int(request.data['user'])  # получаем id юзера на вход
-        carts = Cart.objects.all()
-        cartsserial = CartSerializer(carts, many=True)
-        cart_data = cartsserial.data
-        our_cart = getCart(user_id=user_id, carts=cart_data)  # Получаем нужную корзину, чтобы сделать всё что нужно
-        returning = getOrderData(our_cart)  # то, что нужно положить в БД "orders"
-        user = User.objects.get(id=user_id)
-        # Убираем из корзины
-        cart_to_del = Cart.objects.get(user=user)
-        cart_to_del.delete()
-        # -1 из количества
-        for prod in returning.get('product'):
-            product = Product.objects.get(id=prod)
-            product.stock_quantity -= 1
-            product.save()
-        # Добавляем в Orders
-        serializer = OrderSerializer(data=returning)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=400)
+    # def post(self, request):  # По сути нажали на кнопку "Заказать". Удаляем из корзины и -1 каждого товара из корзины
+    #     user_id = int(request.data['user'])  # получаем id юзера на вход
+    #     carts = Cart.objects.all()
+    #     cartsserial = CartSerializer(carts, many=True)
+    #     cart_data = cartsserial.data
+    #     our_cart = getCart(user_id=user_id, carts=cart_data)  # Получаем нужную корзину, чтобы сделать всё что нужно
+    #     returning = getOrderData(our_cart)  # то, что нужно положить в БД "orders"
+    #     user = User.objects.get(id=user_id)
+    #     # Убираем из корзины
+    #     cart_to_del = Cart.objects.get(user=user)
+    #     cart_to_del.delete()
+    #     # -1 из количества
+    #     for prod in returning.get('product'):
+    #         product = Product.objects.get(id=prod)
+    #         product.stock_quantity -= 1
+    #         product.save()
+    #     # Добавляем в Orders
+    #     serializer = OrderSerializer(data=returning)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=400)
 

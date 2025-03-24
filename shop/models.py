@@ -73,33 +73,33 @@ class Product(models.Model):  # Товар, связь с брендом
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    user = models.ForeignKey(UserDjango, on_delete=models.CASCADE, related_name='orders')
     product = models.ManyToManyField(Product, related_name='orders')
     total_price = models.IntegerField()
     status = models.CharField(max_length=64, choices=ORDER_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
+        return str(self.user.username)  # f'{self.user.first_name} {self.user.last_name}'
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(UserDjango, on_delete=models.CASCADE, related_name='reviews')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     rating = models.CharField(max_length=64, choices=RATING_CHOICES)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.comment
+        return str(self.user.username)
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart')
+    user = models.ForeignKey(UserDjango, on_delete=models.CASCADE, related_name='cart')
     product = models.ManyToManyField(Product, related_name='cart')
 
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
+        return str(self.user.username)  # f'{self.user.first_name} {self.user.last_name}'
 
 
 
