@@ -4,11 +4,13 @@
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from main.serializers import UserSerializer, ProductSerializer, TagSerializer, BrandSerializer, OrderSerializer, ReviewSerializer, CartSerializer
 from shop.models import User, Product, Tag, Brand, Order, Review, Cart
+from shop.permissions import IsOwnerOrReadOnly
 
 from shop.order_counting import getOrderData, getCart
 
@@ -52,6 +54,7 @@ class ReviewViewSet(ModelViewSet):
 class MakingOrderViewSet(ListAPIView):
     queryset = Order.objects.all()
     serializer_class = CartSerializer
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     # def post(self, request):  # По сути нажали на кнопку "Заказать". Удаляем из корзины и -1 каждого товара из корзины
     #     user_id = int(request.data['user'])  # получаем id юзера на вход
