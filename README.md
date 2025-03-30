@@ -7,6 +7,7 @@
 - Order
 - Review
 - Cart
+
 Также есть модель User, позже заменённая на модель из django.contrib.auth.models.
 
 ## Вьюшки
