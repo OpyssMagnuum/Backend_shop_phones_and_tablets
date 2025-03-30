@@ -19,7 +19,7 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from shop.views import UserViewSet, OrderViewSet, MakingOrderViewSet, CartViewSet, ProductViewSet, TagViewSet, \
-    BrandViewSet, ReviewViewSet, aboba
+    BrandViewSet, ReviewViewSet
 from django.contrib.auth.models import User as UserDjango
 
 r = DefaultRouter()
@@ -34,5 +34,4 @@ r.register('reviews', ReviewViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('makeorders/', MakingOrderViewSet.as_view()),
-    path('aboba/', aboba),
 ] + r.urls

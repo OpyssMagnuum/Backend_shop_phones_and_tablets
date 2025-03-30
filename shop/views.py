@@ -83,8 +83,3 @@ class MakingOrderViewSet(ListAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=400)
-
-
-def aboba(request):
-    print(UserDjango)
-    return HttpResponse('Hello world!')
