@@ -17,6 +17,7 @@ def getOrderData(cart):
 
 
 def getCart(user_id, carts):
+    # Пример carts : [{'id': 7, 'user': 1, 'product': [2, 3, 4, 1]}]
     for cart in carts:
         if cart.get('user', None) is None:
             pass

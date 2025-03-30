@@ -3,6 +3,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from shop.models import User, Product, Tag, Brand, Order, Review, Cart
+from django.contrib.auth.models import User as UserDjango
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -18,7 +18,9 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from shop.views import UserViewSet, OrderViewSet, MakingOrderViewSet, CartViewSet, ProductViewSet, TagViewSet, BrandViewSet, ReviewViewSet
+from shop.views import UserViewSet, OrderViewSet, MakingOrderViewSet, CartViewSet, ProductViewSet, TagViewSet, \
+    BrandViewSet, ReviewViewSet, aboba
+from django.contrib.auth.models import User as UserDjango
 
 r = DefaultRouter()
 r.register('users', UserViewSet)
@@ -32,4 +34,5 @@ r.register('reviews', ReviewViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('makeorders/', MakingOrderViewSet.as_view()),
+    path('aboba/', aboba),
 ] + r.urls
